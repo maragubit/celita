@@ -1,0 +1,40 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="receta container text-center">
+        {%if object.imagen%}
+    <img src="{{object.imagen.url}}" alt="imagen receta"></img>
+    {%else%}
+    <img src="https://st.depositphotos.com/1229718/4325/i/450/depositphotos_43250343-stock-photo-fast-food-questions.jpg" alt="imagen receta"></img>
+    {%endif%}
+    <form method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    <br>
+    <input class="form-control" type="text"name="nombre" value="{{object.nombre}}"></input>
+    <hr>
+    <input class="form-control" type="file"name="foto"></input>
+    <label for="observaciones">Observaciones :</label>
+    <textarea class="form-control" id="observaciones" name="observaciones" rows="3">{{object.observaciones}}</textarea><br>
+    <br>
+    <input type="submit" value="guardar cambios" class="btn btn-success" style="width:340px">
+    <hr>
+    </form>
+    <h5>Lista de ingredientes:</h5>
+        <div class="listaIngredientes">
+            <ul id="listaIngredientes">
+                {%for ingrediente in object.ingredientes.all%}
+                <li>{{ingrediente}}
+                    <a href="{%url 'borrar_ingrediente' pk=ingrediente.id id_receta=object.id%}"><button class="btn btn-danger"> <i style="color:black" class="bi bi-trash-fill"></i></button></a>
+                    <br>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    <div class="row">
+        <div class="col-6"><a href="{%url 'editar_ingrediente'  id_receta=object.id%}"><button class="btn btn-warning">Editar ingredientes <i style="color:black" class="bi bi-pencil-square"></i></button></a></div>
+        <div class="col-6"><a href="{%url 'agregar_ingredientes'  id_receta=object.id%}"><button class="btn btn-success">Añadir más ingredientes</button></a></div>
+    </div>
+</div>
+<br>
+{%endblock%}

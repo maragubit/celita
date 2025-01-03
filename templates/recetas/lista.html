@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+
+<div class="tabla-alimentos container text-center">
+    <table id="tabla_recetas" class="display">
+        <thead>
+        <tr>
+            <th> Nombre</th>
+            <th> Raciones</th>
+            <th> Peso/ración</th>
+            <th> Fecha</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%for receta in recetas%}
+        <tr>
+            <td><a href="{%url 'receta' receta.pk %}">{{receta.nombre}} ({{receta.total}}g)</a></td>
+            <td>{{receta.raciones}}</td>
+            <td>{{receta.peso_racion}}g</td>
+            <td>{{receta.fecha}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+    <br>
+    <a href="{%url 'recetas_crear'%}"><button class="btn btn-success">Crear nueva receta <i class="bi bi-file-plus"></i></button></a>
+    <br>
+    <br>
+    </div>
+    
+{%endblock%}

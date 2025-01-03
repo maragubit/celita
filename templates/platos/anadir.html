@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container text-center">
+    <form method="POST" >
+        {%csrf_token%}
+    
+            <!-- Campo de Recetas (ManyToManyField) -->
+            <div class="mb-3">
+                <label for="recetas" class="form-label">Recetas:</label>
+                <select id="recetas" name="recetas" class="form-select" >
+                    {% for receta in recetas %}
+                        <option value="{{ receta.id }}">{{ receta.nombre }} {{receta.peso_racion}}g/racion</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-control" step=".01" required>
+            </div>
+            <input type="submit" value="añadir plato" class="btn btn-success">
+
+</div>
+
+<br>
+{%endblock%}

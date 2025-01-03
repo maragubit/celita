@@ -1,0 +1,30 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<div class="alimentos container text-center">
+<img src="{%static 'images/alimentos.jpg'%}"></img>
+</div>
+<br>
+<div class="tabla-alimentos container text-center">
+    <table id="tabla_alimentos" class="display">
+        <thead>
+        <tr>
+            <th> Cantidad por ración</th>
+            <th> Nombre</th>
+            <th> Categoria</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%for alimento in alimentos%}
+        <tr>
+            <td>{{alimento.racion}}</td>
+            <td>{{alimento.nombre}}</td>
+            <td>{{alimento.get_categoria_display}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+    <br>
+    </div>
+    
+{%endblock%}

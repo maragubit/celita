@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container text-center">
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Campo de texto para receta -->
+        <h5>{{plato.receta.nombre}}</h5>
+        <br>
+
+        <!-- Campo number para cantidad -->
+        <div class="form-control">
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad" step="0.01" value="{{plato.cantidad}}"required>
+        </div>
+        <br>
+        <button class="btn btn-warning" type="submit">Editar</button>
+        
+    </form>
+</div>
+
+<br>
+{%endblock%}

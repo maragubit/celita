@@ -1,0 +1,71 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container text-center">
+<h6>Semana del {{lunes|date:"d-M-Y"}} al {{domingo|date:"d-M-Y"}}</h6>
+<hr>
+<br>
+<div class="table-responsive ">
+<table class="table table-bordered table-striped" style="min-width:800px">
+    <tr>
+        <th>Día</th>
+        <th>Desayuno ({{dieta.desayuno}})</th>
+        <th>Media mañana ({{dieta.media_manana}})</th>
+        <th>Almuerzo ({{dieta.almuerzo}})</th>
+        <th>Merienda ({{dieta.merienda}})</th>
+        <th>Cena ({{dieta.cena}})</th>
+        <th>Antes de dormir ({{dieta.antes_dormir}})</th>
+    </tr>
+    <tr>
+        <td>Lunes</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_lunes.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Martes</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_martes.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Miércoles</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_miercoles.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Jueves</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_jueves.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Viernes</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_viernes.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Sábado</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_sabado.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Domingo</td>
+        {% for i in rango %}
+        <td>{%for comida in comida_domingo.all%}{%if comida.momento == i %} {%for plato in comida.platos.all%} <li><a href="{%url 'editar_comida' comida.id%}">{{plato}} ({{plato.raciones}}/raciones HC)</a></li> {%endfor%}<hr>Total={{comida.raciones}}{%endif%}{%endfor%}</td>
+        {%endfor%}
+    </tr>
+    
+</table>
+</div>
+<br>
+<a href="{%url 'nueva_comida'%}"><button class="btn btn-success btn-lg">Añadir comida <i class="bi bi-plus-circle"></i></button></a>
+<a href="{%url 'buscar_comida'%}"><button class="btn btn-warning btn-lg">Editar comida <i class="bi bi-pencil-square"></i></button></a>
+</div>
+
+<br>
+{%endblock%}

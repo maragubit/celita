@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container ">
+    <h4 class="text-center">{{receta.nombre}}</h4>
+    <hr>
+    <form method="POST">
+    {%csrf_token%}
+        {%for ingrediente in receta.ingredientes.all%}
+        <div class="form-group mb-2">
+            <label for="ingrediente{{ forloop.counter0 }}">Ingredientes :</label>
+            <select name="ingredientes{{ forloop.counter0 }}">
+            {%for alimento in alimentos.all%}
+                <option value="{{alimento.id}}" {% if alimento.id == ingrediente.alimento.id %}selected{% endif %}>
+                    {{alimento.nombre}} ({{alimento.racion}}/racion) 
+                </option>
+            {%endfor%}
+            </select>
+        </div>
+        <br>
+        <div class="form-group mb-2">
+        <label for="cantidad{{ forloop.counter0 }}">Cantidad :</label>
+        <input type="number" name="cantidad{{ forloop.counter0 }}" value={{ingrediente.cantidad}}></input><hr>
+        </div>
+        {%endfor%}
+        <br>
+    <input type="submit" class="btn btn-success " style="width:100%" value="guardar"></input>
+    </form>
+</div>
+<br>
+{%endblock%}

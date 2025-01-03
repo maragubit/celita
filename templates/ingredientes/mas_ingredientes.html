@@ -1,0 +1,76 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+
+<div class="recetas container text-center">
+    <h4>Añadir ingredientes a {{object.nombre}}</h4>
+    <hr>
+    <form action="{%url 'agregar_ingredientes' id_receta=object.id%}" method="POST">
+    {%csrf_token%}
+    <label for="ingrediente1">Ingredientes :</label>
+    <select name="ingredientes" id="ingredientes">
+        {%for alimento in alimentos.all%}
+      <option value="{{alimento.id}}">{{alimento.nombre}} ({{alimento.racion}}/racion)</option>
+      
+      {%endfor%}
+    </select>
+    <br>
+    <label for="cantidad">Cantidad :</label>
+    <input type="number" name="cantidad" id="cantidad"></input><br><br>
+    <button class="btn btn-success" onclick="add()">Añadir</button>
+
+<hr>
+
+
+<h5>Lista de ingredientes:</h5>
+<ul id="listaIngredientes">
+    {%for ingrediente in object.ingredientes.all%}
+    <li>{{ingrediente.cantidad}} [{{ingrediente.alimento}} ({{ingrediente.alimento.racion}}/racion)]</li>
+    {%endfor%}
+</ul>
+<br>
+<hr>
+    <input type="hidden" name="diccionario" id="diccionario">
+    <input class="btn btn-success" type="submit" value="guardar receta"></input>
+</form>
+</div>
+<br>
+
+
+<script>
+    // Function to add ingredients and their quantities to the list
+    var dicc={};
+   
+    function add() {
+       
+        event.preventDefault();
+        // Get the selected ingredient and its quantity
+        const ingredientesSelect = document.getElementById("ingredientes");
+        const cantidadInput = document.getElementById("cantidad");
+        const alimentoId=ingredientesSelect.options[ingredientesSelect.selectedIndex].value;
+
+        const selectedIngredient = ingredientesSelect.options[ingredientesSelect.selectedIndex];
+        const ingredienteNombre = selectedIngredient.textContent;
+        const cantidad = cantidadInput.value;
+        dicc[alimentoId]=cantidad;
+        
+
+        // Create a new list item
+        const listaIngredientes = document.getElementById("listaIngredientes");
+        const listItem = document.createElement("li");
+        
+
+        // Add text to the list item
+        listItem.textContent = `${cantidad} [${ingredienteNombre}] `;
+
+        // Append the list item to the list
+        listaIngredientes.appendChild(listItem);
+
+        // Clear the quantity input
+        cantidadInput.value = '';
+        diccionario=document.getElementById("diccionario");
+        diccionario.value=JSON.stringify(dicc);
+    }
+</script>
+{%endblock%}

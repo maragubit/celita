@@ -1,0 +1,68 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<div class=" calculadora container text-center">
+    <hr>
+    <h3>Calcula dosis de glucosa</h3>
+    <div class="form-group">
+        <label for="peso">Peso Celita (kg):</label><br>
+        <input type="number" id="peso" name="peso" step="0.01" value=15 placeholder="Ingrese el peso en kg">
+    </div>
+    <div class="form-group">
+        <label for="solucion_glucosa">Solución de Sacarosa en g/L:</label>
+        <input type="number" id="solucion_glucosa" name="solucion_glucosa" step="0.01" placeholder="Ingrese la solución de glucosa">
+    </div>
+    <div class="form-group">
+        <label for="solucion_glucosa">Volumen de solución administrado en ml:</label>
+        <input type="number" id="volumen_glucosa" name="volumen_glucosa" step="0.01" placeholder="Ingrese volumen de solucion de glucosa">
+    </div>
+    <button onclick="glucosa()" class="btn btn-success">calcular</button>
+    <p  name="glucemia">la glucemia se incrementaría en: <span id="glucemia"> </span> mg/dl si hubiera ausencia de insulina</p>
+    <p style="font-weight:bold">Nota:</p>
+        *La fructosa también puede convertirse parcialmente en glucosa en el metabolismo, pero este cálculo se limita a la glucosa directa en ausencia total de insulina.
+        Factores como la absorción intestinal, el uso metabólico inmediato y la insulina pueden modificar este aumento en la práctica.<br>
+        *En la práctica,  en pacientes no diabéticos, la glucemía sube aprox entre 35 y 50 mg/dl por cada ración de Hidratos de carbono pura (10g)
+
+    <hr>
+    <br>
+
+    <h3>Calcula solución de sacarosa</h3>
+    <div class="form-group">
+        <label for="sacarosa">Cantidad de Sacarosa en g:</label>
+        <input type="number" id="sacarosa" name="sacarosa" step="0.01" placeholder="Ingrese la cantidad de sacarosa">
+    </div>
+    <div class="form-group">
+        <label for="agua">Volumen de agua en ml:</label><br>
+        <input type="number" id="agua" name="agua" step="0.01" placeholder="Ingrese volumen de agua">
+    </div>
+    <button onclick="sacarosa()" class="btn btn-success">calcular</button>
+    <p  name="sacarosaSolucion">es una solucion de sacarosa de: <span id="sacarosaSolucion"> </span> g/l</p>
+    <p style="font-weight:bold">Nota:</p>
+        Una cucharadita de sacarosa (azucar de mesa) equivale aprox a 30g. Un vaso de agua equivale aprox a 250ml.
+</div>
+<script>
+function glucosa(){
+    //variables
+    let peso=document.getElementById("peso").value;
+    let solucionGlucosa=document.getElementById("solucion_glucosa").value;
+    let volumenGlucosa=document.getElementById("volumen_glucosa").value;
+    let incremento=0;
+    let volemia=((70*peso)/1000).toFixed(2);
+    //lógica
+    let glucosa=((solucionGlucosa*volumenGlucosa/1000)/2).toFixed(2);//glucosa administrada en gramos, siendo la mitad de sacarosa.
+    incremento=(glucosa/volemia).toFixed(2);//incremento en g/l
+    incremento=(incremento*100).toFixed(2); //incremento en mg/dl
+    let glucemia=document.getElementById("glucemia");
+    glucemia.innerHTML=incremento;
+}
+function sacarosa(){
+    let sacarosa=document.getElementById("sacarosa").value;
+    let agua=document.getElementById("agua").value;
+    let solucion=document.getElementById("sacarosaSolucion");
+    solucion.innerHTML=((sacarosa/agua).toFixed(2))*1000;
+
+}
+
+
+</script>
+{%endblock%}

@@ -1,0 +1,60 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container text-center">
+<h3>{{comida.get_momento_display}} del {{comida.fecha|date:'d/M/Y'}} <a href="{%url 'eliminar_comida' comida.id%}"><button class="btn btn-danger">Eliminar comida</button></a></h3>
+<br>
+<form method="POST">
+{%csrf_token%}
+<div class="mb-3">
+    <label for="fecha" class="form-label">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" class="form-control" value={{comida.fecha|date:'Y-m-d'}} required>
+</div>
+<div class="mb-3">
+    <label for="momento" class="form-label">Momento del Día:</label>
+    <select 
+        id="momento" 
+        name="momento" 
+        class="form-select" 
+        required>
+        
+        <option value="1" {% if comida.momento == 1 %}selected{% endif %}>Desayuno</option>
+        <option value="2" {% if comida.momento == 2 %}selected{% endif %}>Media mañana</option>
+        <option value="3" {% if comida.momento == 3 %}selected{% endif %}>Almuerzo</option>
+        <option value="4" {% if comida.momento == 4 %}selected{% endif %}>Merienda</option>
+        <option value="5" {% if comida.momento == 5 %}selected{% endif %}>Cena</option>
+        <option value="6" {% if comida.momento == 6 %}selected{% endif %}>Antes de dormir</option>
+    </select>
+</div>
+<input type="submit" value="guardar cambios" class="btn btn-warning">
+</form>
+<br>
+<h6>Lista de platos</h6>
+<table id="tabla_platos" class="display">
+    <thead>
+    <tr>
+        <th> Platos</th>
+        <th> Cantidad</th>
+        <th> Editar</th>
+        <th> Borrar</th>
+    </tr>
+    </thead>
+    <tbody>
+    {%for plato in comida.platos.all%}
+    <tr>
+        <td>{{plato.receta}}</td>
+        <td>{{plato.cantidad}}</td>
+        <td><a href="{%url 'editar_plato' plato.id %}" class="bi bi-pencil-square"></a></td>
+        <td><a href="{%url 'eliminar_plato' plato.id %}" class="bi bi-trash"></a></td>
+    </tr>
+    {%endfor%}
+</tbody>
+</table>
+<br>
+<a href="{%url 'anadir_plato' comida.id%}"><button class="btn btn-success">Añadir plato</button></a>
+
+</div>
+
+<br>
+{%endblock%}

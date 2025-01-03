@@ -1,0 +1,40 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container text-center">
+    <form method="post" action="{%url 'buscar_comida'%}">
+        {% csrf_token %}
+        
+        <!-- Campo de fecha -->
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Selecciona una fecha:</label>
+            <input type="date" id="fecha" name="fecha" class="form-control" required>
+        </div>
+        
+        <!-- Campo select -->
+        <div class="mb-3">
+            <label for="momento" class="form-label">Selecciona una opción:</label>
+            <select id="momento" name="momento" class="form-select" required>
+                <option value="1">Desayuno</option>
+                <option value="2">Media mañana</option>
+                <option value="3">Almuerzo</option>
+                <option value="4">Merienda</option>
+                <option value="5">Cena</option>
+                <option value="6">Antes de dormir</option>
+            </select>
+        </div>
+        {%if texto%}
+        <div class="alert alert-danger" role="alert">
+            {{texto}}
+        </div>
+        {%endif%}
+        <!-- Botón de envío -->
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </form>
+
+
+</div>
+
+<br>
+{%endblock%}

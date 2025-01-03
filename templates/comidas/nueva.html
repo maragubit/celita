@@ -1,0 +1,51 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="container text-center">
+    <form method="POST" action="{%url 'nueva_comida' %}">
+    {%csrf_token%}
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" class="form-control" required>
+        </div>
+
+        <!-- Campo de Recetas (ManyToManyField) -->
+        <div class="mb-3">
+            <label for="recetas" class="form-label">Recetas:</label>
+            <select id="recetas" name="recetas" class="form-select" >
+                {% for receta in recetas %}
+                    <option value="{{ receta.id }}">{{ receta.nombre }} {{receta.peso_racion}}g/racion</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" class="form-control" step=".01" required>
+        </div>
+
+        <!-- Campo de Momento del Día (Choices) -->
+        <div class="mb-3">
+            <label for="momento" class="form-label">Momento del Día:</label>
+            <select 
+                id="momento" 
+                name="momento" 
+                class="form-select" 
+                required>
+                
+                    <option value="1">Desayuno</option>
+                    <option value="2">Media mañana</option>
+                    <option value="3">Almuerzo</option>
+                    <option value="4">Merienda</option>
+                    <option value="5">Cena</option>
+                    <option value="6">Antes de dormir</option>
+                
+            </select>
+        </div>
+        <input type="submit" value="guardar comida" class="btn btn-success">
+
+</div>
+
+<br>
+{%endblock%}

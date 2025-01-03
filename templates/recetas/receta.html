@@ -1,0 +1,35 @@
+{%extends "base.html"%}
+{%load static%}
+{%block contenido%}
+<br>
+<div class="receta container text-center">
+{%if object.imagen%}
+<img class="img-fluid" src="{{object.imagen.url}}" alt="imagen receta"></img>
+{%else%}
+<img src="https://st.depositphotos.com/1229718/4325/i/450/depositphotos_43250343-stock-photo-fast-food-questions.jpg" alt="imagen receta"></img>
+{%endif%}
+<br>
+<h4>{{object.nombre}}</h4>
+<hr>
+<p>Ingredientes:</p>
+<ul>
+{%for ingrediente in object.ingredientes.all%}
+<li>{{ingrediente.alimento}} : {{ingrediente.cantidad}} ({{ingrediente.raciones}} raciones)</li>
+{%endfor%}
+</ul>
+<hr>
+<p>Observaciones:</p>
+<p>{{object.observaciones}}</p>
+<br>
+<hr>
+<p style="font-weight:bold">Total: {{object.total}}g [{{object.peso_racion}} g/ración]</p>
+
+<p style="font-weight:bold">Raciones disponibles: {{object.raciones}}</p>
+<br>
+<a href="{%url 'editar_receta' object.id%}"><button class="btn btn-warning">Editar <i style="color:black" class="bi bi-pencil-square"></i></button></a>
+<a href="{%url 'borrar_receta' object.id%}"><button class="btn btn-danger">Eliminar <i style="color:black" class="bi bi-trash-fill"></i></button></a>
+</div>
+
+
+<br>
+{%endblock%}
