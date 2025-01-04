@@ -3,7 +3,7 @@
 {%block contenido%}
 <br>
 <div class="container text-center">
-<h6>Semana del {{lunes|date:"d-M-Y"}} al {{domingo|date:"d-M-Y"}}</h6>
+<h6>Semana del {{lunes|date:"d-M-Y"}} al {{domingo|date:"d-M-Y"}} <input type="date" id="fecha" name="fecha"><button class="btn"><i class="bi bi-search"></i></button></h6>
 <hr>
 <br>
 <div class="table-responsive ">
@@ -63,8 +63,8 @@
 </table>
 </div>
 <br>
-<a href="{%url 'nueva_comida'%}"><button class="btn btn-success btn-lg">Añadir comida <i class="bi bi-plus-circle"></i></button></a>
-<a href="{%url 'buscar_comida'%}"><button class="btn btn-warning btn-lg">Editar comida <i class="bi bi-pencil-square"></i></button></a>
+<a href="{%url 'nueva_comida'%}"><button class="btn btn-success btn-lg mb-3">Añadir comida <i class="bi bi-plus-circle"></i></button></a>
+<a href="{%url 'buscar_comida'%}"><button class="btn btn-warning btn-lg mb-3">Editar comida <i class="bi bi-pencil-square"></i></button></a>
 </div>
 
 <br>
