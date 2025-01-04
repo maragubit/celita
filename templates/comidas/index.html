@@ -3,7 +3,7 @@
 {%block contenido%}
 <br>
 <div class="container text-center">
-<h6>Semana del {{lunes|date:"d-M-Y"}} al {{domingo|date:"d-M-Y"}} <input type="date" id="fecha" name="fecha"><button class="btn"><i class="bi bi-search"></i></button></h6>
+<h6>Semana del {{lunes|date:"d-M-Y"}} al {{domingo|date:"d-M-Y"}} <form method="POST"> {% csrf_token %}<input type="date" id="fecha" name="fecha" class="mr-2"> <input type="submit" class="btn btn-success" value="Buscar"></form></h6>
 <hr>
 <br>
 <div class="table-responsive ">

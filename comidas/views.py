@@ -11,7 +11,11 @@ from datetime import datetime
 def index(request):
     
     dieta=Dietas.objects.get(activada=True)
-    hoy=dt.date.today()
+    if request.method =="POST":
+        hoy_input=request.POST['fecha']
+        hoy = datetime.strptime(hoy_input, '%Y-%m-%d').date()
+    else:
+        hoy=dt.date.today()
     """Dias de la semana de lunes a domingo"""
     lunes=hoy-relativedelta(days=+hoy.weekday())
     martes=lunes+relativedelta(days=+1)
@@ -113,3 +117,5 @@ def eliminar_comida(request,**kwargs):
         plato.delete()
     comida.delete()
     return redirect('comidas_index')
+
+
